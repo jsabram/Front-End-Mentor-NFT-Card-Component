@@ -1,5 +1,12 @@
 @import '_colors';
 
+@mixin flexbox($display, $alignItems, $justifyContent, $direction) {
+	display: $display;
+	align-items: $alignItems;
+	justify-content: $justifyContent;
+	flex-direction: $direction;
+}
+
 *,
 *::before,
 *::after {
@@ -14,18 +21,124 @@ html {
 
 body {
 	position: relative;
+	@include flexbox(flex, center, center, column);
 	min-height: 100vh;
+	padding: 1em;
 	background-color: $very-dark-blue-bg;
 	font-family: 'Outfit', sans-serif;
 	font-size: 1.8rem;
+	color: $soft-blue;
+}
+
+.card {
+	width: 100%;
+	max-width: 350px;
+	padding: 1em 1.4em;
+	background-color: $very-dark-blue-card;
+	box-shadow: 0 2rem 4rem rgb(9, 18, 31);
+	border-radius: 2rem;
+
+	&__img {
+		position: relative;
+		height: 300px;
+		width: 300px;
+		cursor: pointer;
+
+		&-equilibrium {
+			height: 100%;
+			border-radius: 2rem;
+		}
+
+		&-bg {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			@include flexbox(flex, center, center, row);
+			border-radius: 2rem;
+			opacity: 0;
+			transition: background-color 0.3s, opacity 0.3s;
+		}
+
+		&:hover {
+			.card__img-bg {
+				background-color: hsla(178, 100%, 50%, 0.5);
+				opacity: 1;
+			}
+		}
+	}
+
+	&__title {
+		margin: 1em 0 0.5em 0;
+		font-size: 2.3rem;
+		color: $white;
+		cursor: pointer;
+		transition: color 0.3s;
+
+		&:hover {
+			color: $cyan;
+		}
+	}
+
+	&__text {
+		line-height: 1.5;
+	}
+
+	&__info {
+		@include flexbox(flex, center, space-between, row);
+		padding: 1.3em 0;
+		border-bottom: 1px solid $very-dark-blue-line;
+		&-price {
+			color: $cyan;
+		}
+
+		svg {
+			margin-right: 0.2em;
+		}
+	}
+
+	&__user {
+		@include flexbox(flex, center, flex-start, row);
+		padding: 0.8em 0 0;
+
+		&-photo {
+			height: 30px;
+			width: 30px;
+			margin-right: 1em;
+			border: 1px solid $white;
+			border-radius: 50%;
+		}
+
+		&-credit {
+			font-size: 1.6rem;
+
+			&--link {
+				color: $white;
+				text-decoration: none;
+				cursor: pointer;
+				transition: color 0.3s;
+
+				&:hover {
+					color: $cyan;
+				}
+			}
+		}
+	}
 }
 
 .attribution {
 	position: absolute;
 	bottom: 0;
+	padding-bottom: 1em;
 	font-size: 11px;
 	text-align: center;
 }
 .attribution a {
-	color: hsl(228, 45%, 44%);
+	color: $white;
+	transition: color 0.3s;
+
+	&:hover {
+		color: $cyan;
+	}
 }
